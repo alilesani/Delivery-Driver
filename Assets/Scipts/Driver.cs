@@ -8,7 +8,9 @@ public class Driver : MonoBehaviour
     [SerializeField] private float _moveSpeed = 0.01f;
     [SerializeField] private float _steerSpeed = -0.25f;
     private void Update() {
-        _transform.Rotate(0, 0, _steerSpeed * Time.deltaTime);
-        _transform.Translate(0, _moveSpeed * Time.deltaTime, 0);
+        float moveAmount = Input.GetAxis("Vertical") * _moveSpeed;
+        float steerAmount = moveAmount != 0 ? Input.GetAxis("Horizontal") * _steerSpeed : 0;
+        _transform.Rotate(0, 0, Time.deltaTime * steerAmount);
+        _transform.Translate(0, Time.deltaTime * moveAmount, 0);
     }
 }
